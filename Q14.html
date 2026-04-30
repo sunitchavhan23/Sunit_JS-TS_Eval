@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+
+<h2>Login</h2>
+
+Email: <input type="text" id="email"><br><br>
+Password: <input type="password" id="password"><br><br>
+
+<button id="loginBtn">Login</button>
+
+<script>
+    const btn = document.getElementById("loginBtn");
+
+    btn.addEventListener("click", () => {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+
+        
+        let found = false;
+
+        for (let i = 0; i < users.length; i++) {
+            if (users[i].email === email && users[i].password === password) {
+                found = true;
+                break;
+            }
+        }
+
+        if (found) {
+            alert("Login Successful");
+        } else {
+            alert("Invalid Credentials");
+        }
+    });
+</script>
+
+</body>
+</html>

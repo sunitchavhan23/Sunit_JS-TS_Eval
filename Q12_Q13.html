@@ -1,0 +1,60 @@
+<!-- Validation Localstorage -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Register With Us!</h3>
+    Name: <input type="text" id="name"><br><br>
+    Email: <input type="text" id="email"><br><br>
+    Password: <input type="password" id="password"><br><br><br>
+    <button id="b1">Submit</button>
+
+    <script>
+        const b1 = document.getElementById("b1");
+
+        b1.addEventListener("click", () => {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            const nameReg = /^[A-Za-z]+$/;
+            const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const passReg = /(?=.*[A-Z])(?=.*[a-z])(?=.*[\d]).{8,}/;
+
+            if (!nameReg.test(name)) {
+                alert("Enter valid name");
+
+            } else if (!emailReg.test(email)) {
+                alert("Enter valid Email");
+
+            } else if (!passReg.test(password)) {
+                alert("Enter Valid Password");
+
+            } else {
+                let users = JSON.parse(localStorage.getItem("users")) || [];
+
+                let userData = {
+                    name: name,
+                    email: email,
+                    password: password
+                };
+
+                users.push(userData);
+                localStorage.setItem("users", JSON.stringify(users));
+
+                alert("Form Submitted");
+
+                document.getElementById("name").value = "";
+                document.getElementById("email").value = "";
+                document.getElementById("password").value = "";
+            }
+            
+        });
+    </script>
+</body>
+</html>

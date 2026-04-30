@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bank Transaction</title>
+</head>
+<body>
+
+<h2>Bank Transaction</h2>
+
+<input type="text" id="name" placeholder="Enter Data"><br><br>
+<button id="b1">Add</button>
+
+<ul id="ul">
+    <li>Pending</li>
+    <li>In-Process</li>
+</ul>
+
+<script>
+    const b1 = document.getElementById("b1");
+    const ul = document.getElementById("ul");
+
+    
+    let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+
+    transactions.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        ul.appendChild(li);
+    });
+
+    
+    b1.addEventListener("click", () => {
+        const name = document.getElementById("name").value.trim();
+
+        if (name === "") {
+            alert("Enter transaction");
+            return;
+        }
+
+        
+        const li = document.createElement("li");
+        li.textContent = name;
+        ul.appendChild(li);
+
+        
+        transactions.push(name);
+        localStorage.setItem("transactions", JSON.stringify(transactions));
+
+        
+        document.getElementById("name").value = "";
+    });
+</script>
+
+</body>
+</html>
